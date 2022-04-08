@@ -467,7 +467,7 @@ $ git reset --hard
 
 
 Git Reset
-As you can see in the above output, the -hard option is operated on the available repository. This option will reset the changes and match the position of the Head before the last changes. It will remove the available changes from the staging area. Consider the below output:
+ the -hard option is operated on the available repository. This option will reset the changes and match the position of the Head before the last changes. It will remove the available changes from the staging area. Consider the below output:
 
 Git Reset
 the status of the repository after the hard reset. We can see there is nothing to commit in my repository because all the changes removed by the reset hard option to match the status of the current Head with the previous one. So the file newfile2.txt has been removed from the repository.
@@ -539,7 +539,46 @@ Git Reset to Commit
 Sometimes we need to reset a particular commit; Git allows us to do so. We can reset to a particular commit. To reset it, git reset command can be used with any option supported by reset command. It will take the default behavior of a particular command and reset the given commit. The syntax for resetting commit is given below:
 
 $ git reset <option> <commit-sha>  
+git@commit /c/revert example/
+$ touch alpha.html
+$ git add . && git commit -m "1st git commit: 1 file"
 
+$ touch beta.html
+$ git add . && git commit -m "2nd git commit: 2 files"
+
+$ touch charlie.html
+$ git add . && git commit -m "3rd git commit: 3 files"
+
+$ touch delta.html
+$ git add . && git commit -m "4th git commit: 4 files"
+
+$ touch edison.html
+$ git add . && git commit -m "5th git commit: 5 files"
+A quick directory listing following the initial command batch shows five files in the current folder:
+
+git@commit /c/revert example/
+$ ls
+alpha.html  beta.html  charlie.html delta.html  edison.html
+A call to the git reflog command will show us our current commit history:
+
+git@commit /c/revert example/
+$ git reflog
+(HEAD -> master)
+d846aa8 HEAD@{0}: commit: 5th git commit: 5 files
+0c59891 HEAD@{1}: commit: 4th git commit: 4 files
+4945db2 HEAD@{2}: commit: 3rd git commit: 3 files
+defc4eb HEAD@{3}: commit: 2nd git commit: 2 files
+2938ee3 HEAD@{4}: commit: 1st git commit: 1 file
+How to revert a Git commit
+What do you think would happen if we did a git revert on the third commit with ID 4945db2? This was the git commit that added the charlie.html file.
+
+git@commit /c/revert example/
+$ git revert 4945db2
+Will the git revert of commit 4945db2 remove charlie.html, delta.html and edison.html from the local workspace?
+
+Will the git revert of commit 4945db2 remove delta.html and edison.html from the local workspace, but leave the other files alone?
+
+Or will this git revert example leave four files in the local workspace and remove only the charlie.html file?
 Usage
 
 $ git whatchanged
